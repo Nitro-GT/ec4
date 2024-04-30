@@ -1,0 +1,47 @@
+local istransparent = false
+local Players = game.Players
+local p = Players
+local function onCharacterAdded(character)
+	     local v = character
+if not v:FindFirstChildOfClass("Hightlight") then
+local high = Instance.new("Highlight",v)
+repeat wait() until  v:FindFirstChild("Head")
+if v:FindFirstChild("Head") and  v:FindFirstChild("Torso") then
+high.OutlineColor = v.Head.Color
+high.FillColor = v.Torso.Color
+print(v.Torso.Color)
+elseif v:FindFirstChild("Head") and  v:FindFirstChild("UpperTorso") then
+high.OutlineColor = v.Head.Color
+high.FillColor = v.UpperTorso.Color
+end
+if istransparent == true then
+    high.FillTransparency = 1
+    end
+end
+end
+local z 
+ function onPlayerAdded(Player)
+    local Player = Player
+if Player.Character then
+    onCharacterAdded(Player.Character)
+    else 
+        repeat wait() until Player.Character 
+        onCharacterAdded(Player.Character)
+end
+end
+
+
+for i,v in pairs(game.Players:GetChildren()) do
+    if v:IsA("Player") then
+ local  Player = v
+ 
+    if Player.Character then
+    onCharacterAdded(Player.Character)
+    else 
+        repeat wait() until Player.Character 
+        onCharacterAdded(Player.Character)
+end
+	Player.CharacterAdded:Connect(onCharacterAdded)
+    end
+end
+Players.PlayerAdded:Connect(onPlayerAdded)
